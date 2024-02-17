@@ -1,51 +1,60 @@
+# Define a video class, a video has title and link
 class Video:
 	def __init__(self, title, link):
-		self.title = title
-		self.link = link
+		pass
+	 
 
+class Playlist:
+	def __init__(self, name, description, rating, videos):
+		pass
+		
+# Ask an user to enter information of a video
 def read_video():
-		title = input("Enter title: ")
-		link = input("Enter link: ")
-		video = Video(title, link)
-		return video
-	
+		pass
+
+
+# Show information of the video
 def print_video(video):
-		print("Video title: ", video.title)
-		print("Video link: ", video.link)
+	pass
 
+
+# Ask an user information of all videos, they firt choose how many videos are there
 def read_videos():
-	videos = []
-	total_video = int(input("Enter how many videos: "))
-	for i in range(total_video):
-		print("Enter video: ", i+1)
-		vid = read_video()
-		videos.append(vid)
-	return videos
+	pass
+# Show information of all videos
+def  print_videos(videos):
+	pass   
 
-def print_videos(videos):
-	for i in range(len(videos)):
-		print_video(videos[i])
-
+# write a video information to text file
 def write_video_txt(video, file):
-	file.write(video.title + "\n")
-	file.write(video.link + "\n")
+	pass
+# Write videos to text file, first line is the total number of videos
+def write_videos_txt(videos, file):
+	pass
 
-def write_to_txt(videos):
-	total = len(videos)
-	with open("lan.txt", "w") as file:
-		file.write(str(total) + "\n")
-		for i in range(total):
-			write_video_txt(videos[i], file)
+# Read 2 line from a text file and retirn a video
+def read_video_from_txt(file):
+	pass
+
+# Read data.txt and return a list of videos
+def read_videos_from_txt(file):
+	pass
+
+
+
+def read_playlist():
+	pass
+
+def write_playlist_txt(playlist):
+	pass
+
+def read_playlist_from_txt():
+	pass
+
+def print_playlist(playlist):
+	pass
+
 
 def main():
-		# total_video = input("Enter how many videos: ")
-		videos = read_videos()
-		write_to_txt(videos)
-		print("------------")
-		print_videos(videos)
-
-main()
-
-
-		
-	
+	pass
+main() 

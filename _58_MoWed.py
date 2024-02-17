@@ -13,16 +13,16 @@ class Playlist:
 		
 # Ask an user to enter information of a video
 def read_video():
-		title = input("Enter in title: ")
-		link = input("Enter in link: ")
+		title = input("Enter in title: ") + "\n"
+		link = input("Enter in link: ") + "\n"
 		video = Video(title, link)
 		return video
 
 
 # Show information of the video
 def print_video(video):
-	print("Enter title: ", video.title)
-	print("Enter link: ", video.link)
+	print("Enter title: ", video.title, end="")
+	print("Enter link: ", video.link, end="")
 
 
 # Ask an user information of all videos, they firt choose how many videos are there
@@ -38,17 +38,17 @@ def read_videos():
 # Show information of all videos
 def  print_videos(videos):
 	for i in range (len(videos)):
+		print("Video " + str(i+1) + ": ")
 		print_video(videos[i])     
 
 # write a video information to text file
 def write_video_txt(video, file):
-	file.write(video.title + "\n")
-	file.write(video.link + "\n")
+	file.write(video.title)
+	file.write(video.link)
 
 # Write videos to text file, first line is the total number of videos
 def write_videos_txt(videos, file):
 	total = len(videos)
-	
 	file.write(str(total) + "\n")
 	for i in range(total):
 			write_video_txt(videos[i], file)
@@ -75,18 +75,18 @@ def read_videos_from_txt(file):
 
 
 def read_playlist():
-	playlist_name = input("Enter playlist name: ")
-	playlist_description = input("Enter playlist description: ")
-	playlist_rating = input("Enter rating (1-5): ")
+	playlist_name = input("Enter playlist name: ") + "\n" 
+	playlist_description = input("Enter playlist description: ") + "\n"
+	playlist_rating = input("Enter rating (1-5): ") + "\n"
 	playlist_videos = read_videos()
 	playlist = Playlist(playlist_name, playlist_description, playlist_rating, playlist_videos)
 	return playlist
 
 def write_playlist_txt(playlist):
 	with open("data.txt", "w") as file:
-		file.write(playlist.name + "\n")
-		file.write(playlist.description + "\n")
-		file.write(playlist.rating + "\n")
+		file.write(playlist.name)
+		file.write(playlist.description)
+		file.write(playlist.rating)
 		write_videos_txt(playlist.videos, file)
 	print("Successfully write playlist to txt")
 
@@ -106,19 +106,53 @@ def print_playlist(playlist):
 	print("playlist rating: " + playlist.rating, end="" )
 	print_videos(playlist.videos)
 
+def show_menu():
+	print("\n Main menu: \n")
+	print("---------------------------------")
+	print("|  Option 1: Create playlist	|")
+	print("|  Option 2: Show playlist	|")
+	print("|  Option 3: Play a video	|")
+	print("|  Option 7: Save and Exit	|")
+	print("---------------------------------")
+
+def select_in_range(prompt, min, max):
+	choice = input(prompt)
+	while not choice.isdigit() or int(choice) < min or int(choice) > max :
+		choice = input(prompt)
+	choice = int(choice)
+	return choice
+
+def play_video(playlist):
+	print_videos(playlist.videos)
+	total = len(playlist.videos)
+	choice = select_in_range("Select a video (1," + str(total) + "): ", 1, total)
+	print("Open video: " + playlist.videos[choice-1].title + " - " + playlist.videos[choice-1].title )
 
 def main():
-# # Ask user to enter information of all video one by one 
-# 	videos = read_videos()
-# # Write videos infomation to a text file
-# 	write_videos_txt(videos)
-# # Read the text file to get the video list
-# 	videos = read_videos_from_txt()
-# # User list above and show all information of videos inside that list
-# 	print("-----")
-# 	print_videos(videos)
-	playlist = read_playlist()
-	write_playlist_txt(playlist)
-	playlist = read_playlist_from_txt()
-	print_playlist(playlist)
+
+	try:
+		playlist = read_playlist_from_txt()
+		print("Loaded data Successfully !!!")
+	except:
+		print("Welcome firt user !!!")
+	while True:
+		show_menu()
+		choice = select_in_range("Select an option (1-7): ", 1, 7)
+		if choice == 1:
+			playlist = read_playlist()
+			input("Press Enter to continue. ")
+		elif choice == 2:
+			print_playlist(playlist)
+			input("Press Enter to continue. ")
+		elif choice == 3:
+			play_video(playlist)
+			input("Press Enter to continue. ")
+		elif choice == 7:
+			write_playlist_txt(playlist)
+			input("Press Enter to continue. ")
+			break
+		else:
+			print("wrong input, Exits.")
+			break
+	
 main() 
