@@ -117,6 +117,7 @@ def show_menu():
 	print("|  Option 1: Create playlist	|")
 	print("|  Option 2: Show playlist	|")
 	print("|  Option 3: Play a video	|")
+	print("|  Option 4: Add video   	|")
 	print("|  Option 7: Save and Exit	|")
 	print("---------------------------------")
 
@@ -139,6 +140,18 @@ def play_video(playlist):
 	print("Open video: " + playlist.videos[choice-1].title + " - " + playlist.videos[choice-1].title, end="")
 	playlist.videos[choice-1].open()
     # playlist.videos[choice-1].open()
+	
+def add_video(playlist):
+	
+	print("Enter new video information:")
+	new_title = input("Enter new title: ") + "\n"
+	new_link = input("Enter new link: "  ) + "\n"
+	
+	new_video = Video(new_title, new_link)
+	playlist.videos.append(new_video)
+	
+	return playlist
+	
 
 def main():
 
@@ -158,6 +171,9 @@ def main():
 			input("Press Enter to continue. ")
 		elif choice == 3:
 			play_video(playlist)
+			input("Press Enter to continue. ")
+		elif choice == 4:
+			playlist = add_video(playlist)
 			input("Press Enter to continue. ")
 		elif choice == 7:
 			write_playlist_txt(playlist)

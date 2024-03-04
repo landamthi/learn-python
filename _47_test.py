@@ -100,7 +100,7 @@ def read_playlist_from_txt():
 	playlist = Playlist(playlist_name, playlist_description, playlist_rating, playlist_videos)
 	return playlist
 
-def print_playlist(playlist):
+def print_playlist(playlist ):
 	print("palylist name: " + playlist.name, end="")
 	print("playlist description: " + playlist.description, end="" )
 	print("playlist rating: " + playlist.rating, end="" )
